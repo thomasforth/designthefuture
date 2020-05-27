@@ -1,0 +1,486 @@
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url('../fonts/Poppins-Regular.ttf');
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins-Regular', 'Arial';
+}
+h1,
+h2 {
+    font-weight: bold;
+}
+header {
+    width: 100%;
+    padding: 0px;
+    font-size: 1.2em;
+    background-color: #3a2051;
+    color: white;
+}
+#main header h1 {
+    text-align: center;
+    margin-top: 0;
+    line-height: 1.5em;
+    padding: 0.5em 0;
+}
+#main h1,
+#main h2 {
+    margin-bottom: 0;
+    /*font-weight: normal;*/
+}
+h1 {
+    font-size: 2em;
+    margin-top: 1em;
+}
+#main {
+    background-color: #ffffff;
+    color: #000000;
+    background-color: rgb(255, 219, 226);
+    padding-bottom: 2em;
+}
+.holder {
+    position: relative;
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
+    padding: 1em;
+    background-color: white;
+}
+.holder:nth-child(n+2) {
+    margin-top: 1em;
+}
+.sliderBarHolder {
+    margin: 1.5em 0.5em;
+    margin-bottom: 1.7em;
+    position: relative;
+}
+.sliderBarHolder label {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 0.65em;
+    margin-right: 1.4em;
+    width: 230px;
+}
+.sliderBarHolder .sliderBar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 400px;
+}
+.sliderBarHolder:last-child {}
+.sliderBarHolder:last-child .noUi-marker-normal {
+    visibility: hidden;
+}
+h2 {
+    font-size: 1.4em;
+    text-align: left;
+}
+h3 {
+    font-weight: bold;
+    margin-top: 1.2em;
+}
+h4 {
+    margin: -1em auto 1em auto;
+    text-align: center;
+    padding-bottom: 1em;
+}
+.section {
+    margin: 1.2em 0;
+}
+.subsection {
+    position: relative;
+    width: 48%;
+    margin: 0.4em 0;
+    display: inline-block;
+    vertical-align: top;
+}
+.explainer {
+    font-size: small;
+    margin-bottom: 0.5em;
+}
+#map {
+    width: 100%;
+    height: 500px;
+}
+.barchartContent .barchart {
+    width: 100%;
+    height: 500px;
+}
+.mapControls {
+    margin-top: 1em;
+}
+.mapControls button {
+    appearance: none;
+    -webkit-appearance: none;
+    border-width: 0;
+    padding: 0.3em 0.6em;
+    margin-right: 0.5em;
+    font-family: "Poppins-Regular";
+    cursor: pointer;
+    background-color: #dfdfdf;
+}
+.mapControls button.active[field='Public R&D (£/person)'] {
+    background-color: #e61f47;
+    color: white;
+}
+.mapControls button.active[field='Business R&D (£/person)'] {
+    background-color: #118dff;
+    color: white;
+}
+.section:not(:first-child) {
+    border-top: 1px solid rgba(198, 188, 178, 0.5);
+    padding-top: 0.8em;
+}
+.noUi-handle {
+    border: 1px solid #D9D9D9;
+    border-radius: 3px;
+    background: #e61f47;
+    cursor: default;
+    box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #9a001f, 0 3px 6px -3px #BBB;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+    background: #ff7793;
+}
+.noUi-marker-normal {
+    visibility: hidden;
+}
+.leaflet-popup-content-wrapper {
+    background-color: #333333;
+    border-radius: 0;
+    color: white;
+    font-family: "Poppins-Regular";
+    font-size: 0.9em;
+}
+.leaflet-popup-content-wrapper strong {
+    font-weight: bold;
+    color: #a08f7d;
+}
+.leaflet-popup-tip {
+    background: #333333;
+}
+.leafletTooltip {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    opacity: 1;
+    font-family: "Poppins-Regular";
+    font-size: 0.9em;
+    border-radius: 0;
+    border-width: 0;
+}
+.leaflet-tooltip-left.leafletTooltip::before {
+    border-left-color: #333333;
+}
+.leaflet-tooltip-right.leafletTooltip::before {
+    border-right-color: #333333;
+}
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+p br {}
+.canvasHolder {
+    width: 100%;
+}
+#canvas {
+    height: 450px !important;
+}
+.noUi-value {
+    font-family: 'Poppins-Regular';
+    font-size: 0.8em;
+}
+.noUi-marker-horizontal.noUi-marker-large {
+    height: 0px;
+}
+.sliderValue {
+    color: #e61f47;
+    font-weight: bold;
+    margin-left: 0.2em;
+    font-size: 0.8em;
+    vertical-align: middle;
+    margin-left: 1em;
+}
+.noUi-value-horizontal {
+    -webkit-transform: translate(-50%, -40%);
+    transform: translate(-50%, -40%);
+}
+#sliderHolder {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in !important;
+    margin-top: -4px;
+    border: 4px solid #3a2051;
+}
+#sliderContent {
+    transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    transition-delay: 0.3s;
+    -webkit-transition-delay: 0.3s;
+    padding: 1em;
+}
+.disabled {
+    pointer-events: none;
+    overflow: hidden;
+    max-height: 0 !important;
+    transition: max-height 0.5s ease-out !important;
+}
+.disabled #sliderContent {
+    opacity: 0;
+}
+.checkboxHolder {
+    margin-top: 0.5em;
+}
+.checkboxHolder input {
+    font-size: 1em;
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
+.checkboxHolder label {
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+.controlHolder {
+    display: block;
+    text-align: center;
+    font-size: 0.8em;
+}
+.controlHolder .control {
+    display: inline-block;
+    width: 150px;
+    color: #3a2051;
+    border: 4px solid #3a2051;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5em 0;
+}
+.control.active {
+    background-color: #3a2051;
+    color: white;
+}
+.control:hover:not(.active) {
+    background-color: rgb(230, 31, 71);
+}
+.noUi-horizontal .noUi-handle {
+    width: 34px;
+    height: 20px;
+    left: -17px;
+    top: -2px;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+    height: 9px;
+    top: 5px;
+}
+.hidden {
+    opacity: 0;
+}
+#priorityWarning {
+    font-size: 0.7em;
+    font-weight: bold;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+#chartLegend {
+    text-align: center;
+}
+#chartLegend li {
+    display: inline-block;
+    list-style: none;
+    margin-right: 1.7em;
+    font-size: 0.65em;
+    font-weight: bold;
+}
+#chartLegend .legendKey {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    line-height: 1em;
+    display: inline-block;
+    box-sizing: initial;
+}
+.legendKey.current {
+    background-color: rgba(17, 141, 255, 0.5);
+    border: 1px solid rgb(17, 141, 255);
+}
+.legendKey.future {
+    background-color: rgba(230, 31, 71, 0.5);
+    border: 1px solid rgb(230, 31, 71);
+}
+.legendLabel {
+    margin-left: 0.3em;
+}
+.barchartSourceData {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 0.4em;
+}
+.barchartSourceData button {
+    appearance: none;
+    -webkit-appearance: none;
+    border-width: 0;
+    padding: 0.3em 0.6em;
+    margin-right: 0.5em;
+    font-family: "Poppins-Regular";
+    cursor: pointer;
+    background-color: #dfdfdf;
+}
+.barchartSourceData button.active {
+    background-color: #3a2051;
+    color: white;
+}
+.infobox {
+    display: inline-block;
+    font-size: 0.7em;
+    border: 2px solid #3a2051;
+    padding: 0.7em;
+    margin-top: 1em;
+}
+#futureExplanation {
+    display: none;
+}
+.sliderBarHolder label a {
+    margin-left: 0.3em;
+    cursor: pointer;
+    color: #3a2051;
+    vertical-align: middle;
+    font-size: 1.2em;
+}
+.sliderBarHolder label a:hover {
+    color: rgb(230, 31, 71);
+}
+ul {
+    list-style: none;
+}
+.sliderBarHolder:nth-child(-n+7) .noUi-value {
+    font-size: 0.58em;
+    line-height: 100%;
+    margin-top: 0.2em;
+}
+
+/*
+pointBorderColor: ["rgb(17,141,255)",
+"rgb(230, 31, 71)"],
+backgroundColor: ["rgba(17,141,255,0.5)",
+"rgba(230, 31, 71,0.5)"],*/
+
+@media screen and (max-width: 800px) {
+    .subsection {
+        width: 100%;
+    }
+    .sliderBarHolder {
+        margin: 1.5em 0;
+        margin-bottom: 3em;
+    }
+    .sliderBarHolder label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 0.1em;
+    }
+    .sliderBarHolder .sliderBar {
+        width: 100%;
+    }
+    .sliderValue {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    #barchartSubsection {
+        margin-top: 3em;
+    }
+}

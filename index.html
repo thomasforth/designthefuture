@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Design the future</title>
+    <meta content="en-gb" http-equiv="Content-Language">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta id="viewportid" name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="js/leaflet/leaflet.css" />
+    <script src="js/leaflet/leaflet.js"></script>
+    <script src="js/PapaParse-4.1.0/papaparse.js"></script>
+    <script type="text/javascript" src="js/Chart.js"></script>
+    <script type="text/javascript" src="js/stuquery.js"></script>
+    <script type="text/javascript" src="js/researchdevelopment.js"></script>
+    <script type="text/javascript" src="js/stuquery.svg.js"></script>
+    <script type="text/javascript" src="js/wnumb.js"></script>
+    <script type="text/javascript" src="js/nouislider.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/nouislider.css" />
+    <link rel="stylesheet" href="css/researchdevelopment.css" />
+</head>
+
+<body onload="bodyLoad()">
+
+    <div id="main">
+        <header>
+            <h1>Design the future</h1>
+            <h4>(location of UK public R&amp;D investment)</h4>
+        </header>
+
+        <div class="holder">
+            <p class="explainer">This tool shows where money was spent on research and development (R&amp;D) in the UK in 2016, the most recent year for which we have complete information from Eurostat. Spending is split into public sector (which includes spending by government, higher education, and charities) and private sector (spending by businesses).</p>
+            <p class="explainer">We do not know what priorities were used to assign public sector R&amp;D spending in 2016. When you click on the <strong>design the future</strong> button below you can set the priorities that you think should be used to assign R&amp;D spending in the UK and see how this changes the level of spending by UK nation and region.</p>
+            <div id="sliderBarWrapper" class="section">
+                <div class="controlHolder">
+                    <div class="control active" setting="now" onclick="toggleDataSetting(this)">Spending today</div>
+                    <div class="control" setting="future" onclick="toggleDataSetting(this)">Design the future</div>
+                </div>
+                <div id="sliderHolder" class="disabled">
+                    <div id="sliderContent">
+                        <h2>Priorities</h2>
+                        <p class="explainer">Set your priorities for assigning R&amp;D spending in the UK here and see how it impacts on where money is spent on R&amp;D by the government in the graphs and maps below.</p>
+                        <div class="sliderBarHolder">
+                            <label>Spend equally everywhere<a href="#populationExplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="populationSlider" class="sliderBar" category="population"></div>
+                            <span class="sliderValue">3</span>
+                        </div>
+                        <div class="sliderBarHolder">
+                            <label>Spend where research is excellent<a href="#researchExcellenceExplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="sliderA" class="sliderBar" category="research"></div>
+                            <span class="sliderValue">3</span>
+                        </div>
+                        <div class="sliderBarHolder">
+                            <label>Spend where business spends on R&amp;D<a href="#businessSpendingExplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="sliderB" class="sliderBar" category="businessSpending"></div>
+                            <span class="sliderValue">3</span>
+                        </div>
+                        <div class="sliderBarHolder">
+                            <label>Spend where the economy is weakest<a href="#economicFactorsExplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="sliderC" class="sliderBar" category="costs"></div>
+                            <span class="sliderValue">3</span>
+                        </div>
+                        <div class="sliderBarHolder">
+                            <label>Spend where manufacturing is strongest<a href="#manufacturingExplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="sliderD" class="sliderBar" category="manufacturing"></div>
+                            <span class="sliderValue">2</span>
+                        </div>
+                        <div class="sliderBarHolder">
+                            <label>Increase total government spending on R&amp;D (% of GDP)<a href="#rAndDexplanation"><i class="fas fa-question-circle"></i></a></label>
+                            <div id="sliderExtraGovSpending" class="sliderBar" category="extraGovSpending"></div>
+                            <span class="sliderValue">0.8%</span>
+                        </div>
+                        <div id="priorityWarning" class="hidden">At least one priority factor must be non-zero!</div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="regionsWrapper" class="section">
+                <h2>Spending by region</h2>
+                <p class="infobox">The UK public sector spent <span id="governmentRDpercent"></span>% of GDP (£<span id="govermentRDtotal"></span>) on R&amp;D in 2016.<span id="futureExplanation"> In this imagined future it spends <span id="futureRDpercent"></span>% of GDP (£<span id="futureRDtotal"></span>) per year on R&amp;D, <span id="futureRDchange"></span> per year, consistent with UK R&amp;D spending <span id="totalFutureRD"></span>% of GDP on R&amp;D, assuming business continues to spend twice as much as the public sector.</span>
+                    <br>The UK private sector spent <span id="privateRDpercent"></span>% of GDP (£<span id="privateRDtotal"></span>) on R&amp;D in 2016.</p>
+                <div class="mapControls">
+                    <button onclick="mapControlButtonPress(this)" class="active" field="Business R&D (£/person)">Business spend</button>
+                    <button onclick="mapControlButtonPress(this)" field="Public R&D (£/person)">Public sector spend</button>
+                </div>
+                <div class="subsection">
+                    <div id="map"></div>
+                </div>
+                <div id="barchartSubsection" class="subsection">
+                    <div id="barchartHolder">
+                        <div class="barchartContent"></div>
+                    </div>
+                    <div class="barchartSourceData">
+                        <button class="active" onclick="toggleBarchartSourceData(this)" data-type="percapita">Per capita</button>
+                        <button onclick="toggleBarchartSourceData(this)" data-type="absolute">Absolute</button>
+                    </div>
+                </div>
+            </div>
+            <div id="scatterChartSection" class="section">
+                <h3 style="text-align: center; margin-top:0em">Business spend vs. public sector spend</h3>
+                <div class="canvasHolder">
+                    <div id="chartLegend"></div>
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div id="howthisworks" class="holder">
+            <h2>How this tool works and FAQs.</h2>
+            <h3 id="populationExplanation">Spend equally everywhere (weighting by population).</h3>
+            <p class="explainer">This weighting is the simplest. It assigns government support for R&amp;D in proportion to population. If you choose only this weighting then every region of the UK will receive the same spending per capita.</p>
+            <h3 id="researchExcellenceExplanation">Spend where research is excellent (weighting by research excellence).</h3>
+            <p class="explainer">This weighting uses scores from the 2014 REF to assign government support for R&amp;D in proportion to research excellence in each region. Full calculations are documented on <a href="https://github.com/thomasforth/regionalresearchstrength/">the Regional Research Scores GitHub repository</a>. They largely match the formula used to assign QR money in the UK, except that only the <strong>output</strong> score is considered and no London weighting is applied. Removing London weighting as compared to the QR formula makes this a pure excellence measure rather than one with a regional component.</p>
+            <h3 id="businessSpendingExplanation">Spend where business spends on R&D (weighting by business spending on R&amp;D).</h3>
+            <p class="explainer">This weighting uses data on R&amp;D spending by business. It assigns government support for R&amp;D in proportion to business spend on R&amp;D in 2016 taken from <a href="http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=rd_e_gerdreg">Eurostat table rd_e_gerdreg</a>. A conversion rate of £1.00 = €1.22 is used to convert 2016 data from €/head to £/head. In 2016 the GDP of the UK was £1960bn, which is the basis for our calculations.</p>
+            <h3 id="economicFactorsExplanation">Weighting by economic factors.</h3>
+            <p class="explainer">This weighting uses <a href="https://www.ons.gov.uk/economy/grossvalueaddedgva/bulletins/regionalgrossvalueaddedbalanceduk/1998to2017">regional GVA data from the ONS</a>. It assigns government support for R&amp;D in inverse proportion to the GVA/capita of the region. If you choose only this weighting then regions with weaker economies will receive more government spending on R&amp;D per capita.</p>
+            <h3 id="manufacturingExplanation">Weighting by strength of manufacturing.</h3>
+            <p class="explainer">This weighting uses only the manufacturing component of the <a href="https://www.ons.gov.uk/economy/grossvalueaddedgva/bulletins/regionalgrossvalueaddedbalanceduk/1998to2017">regional GVA data from the ONS</a>. If you choose only this weighting then regions with more GVA from manufacturing will receive more government spending on R&amp;D per capita.</p>
+            <h3 id="rAndDexplanation">Increase total government spending on R&amp;D (as a percentage of GDP).</h3>
+            <p class="explainer">This slider lets you model increases in government spending on R&amp;D. As a rough rule, business spends £2 on R&amp;D for every £1 that government spends on R&amp;D. Following this rule the UK government's stated goal of reaching 2.4% of UK GDP being spent on R&amp;D would require it to raise spending from the current 0.6% to 0.8% of GDP. This tool does not predict how business R&amp;D would change over time in these scenarios.</p>
+            <h3 id="WeightingExplanation">How the weighting works.</h3>
+            <p class="explainer">Once you've selected your weights the following formula is used to calculate how much R&amp;D should be spent in each region.</p>
+            <img style="max-width:100%; margin: 0.2em" src="weightingformula.png" />
+            <p class="explainer">The implementation of that code is in javascript, as part of this project. The raw data (and some columns that pre-calculate some values) is in <a href="data/ToolData.csv">ToolData.csv</a> available for download now.</p>
+            <h3>Why are you working at such large geographical units?</h3>
+            <p class="explainer">This tool works at NUTS1 scale (Yorkshire, London, East of England, etc...), but it would work equally well at NUTS2 scale (Greater Manchester, West Yorkshire, East Anglia) except for London which should generally not be split into parts for this kind of analysis. Since our code is open and documented such a tool could be built easily and would add to public discussion once the complexities of this tool were understood.</p>
+            <h3>Why are you including university and charity spend on R&amp;D in your public sector figures?</h3>
+            <p class="explainer">University spending on R&amp;D is overwhelmingly funded by government and thus included. Charity spending is less clear cut. Our "private vs. public sector" split is probably more accurately described as "market-led vs. non market-led" spending since charities have in common with government that there is less market pressure to assign R&amp;D spending for greatest economic return than exists for business. We created versions of this tool making that distinction but found them to be widely misunderstood and have opted for the more familiar language we use now.</p>
+            <h3>How do you deal with inflation and economic growth?</h3>
+            <p class="explainer">We don't. All data and calculations are based on UK GDP in 2016 and expressed in constant 2016 £s. As UK GDP continues to grow faster than inflation the necessary corrections will grow. It is safest to consider the tool as modelling how spending would have been different in 2016 if different priorities had been used to assign R&amp;D spending.</p>
+        </div>
+
+    </div>
+
+</body>
+
+
+</html>
