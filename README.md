@@ -6,4 +6,5 @@ The algorithm to accompany the interactive tool for exploring options for alloca
 The tool is open source and is live in two locations,
 
 1/ https://www.nesta.org.uk/data-visualisation-and-interactive/design-future/
+
 2/ https://odileeds.org/projects/designthefuture/
